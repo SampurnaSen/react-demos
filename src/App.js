@@ -5,6 +5,7 @@ import Home from './pages/home'
 import About from './pages/about'
 import Footer from './components/footer'
 import FourOhFour from './pages/fourohfour';
+import ContactForm from './components/contactForm';
 
 function App() {
   return (
@@ -20,6 +21,9 @@ function App() {
           </Route>
           <Route path="*">
             <FourOhFour />
+          </Route>
+          <Route path="/contact">
+            <ContactForm />
           </Route>
         </Switch>
       </main>
