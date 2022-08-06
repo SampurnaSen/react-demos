@@ -15,6 +15,11 @@ function Nav() {
                             About
                         </NavLink>
                     </li>
+                    <li>
+                        <NavLink to="/contact">
+                            Contact
+                        </NavLink>
+                    </li>
                 </ul>
             </nav>
         </header>
