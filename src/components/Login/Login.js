@@ -4,7 +4,6 @@ import Card from "../Card/Card";
 import classes from "./Login.module.css";
 import Button from "../Button/BasicButton";
 import { ThemeContext } from "../../store/theme-context";
-import AuthContext from "../../store/auth-context";
 
 const emailReducer = (state, action) => {
   if (action.type === "USER_INPUT") {
@@ -28,10 +27,7 @@ const passwordReducer = (state, action) => {
 
 const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
-  //initial value is the value from the context
-  const [name, setName] = useState("");
 
-  const { onLogin } = useContext(AuthContext);
   const theme = useContext(ThemeContext);
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
@@ -60,10 +56,6 @@ const Login = (props) => {
     dispatchEmail({ type: "USER_INPUT", val: event.target.value });
   };
 
-  const nameChangeHandler = (event) => {
-    setName(event.target.value);
-  };
-
   const passwordChangeHandler = (event) => {
     dispatchPassword({ type: "USER_INPUT", val: event.target.value });
   };
@@ -78,7 +70,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    onLogin(emailState.value, passwordState.value, name);
+    props.onLogin(emailState.value, passwordState.value);
   };
 
   return (
@@ -86,24 +78,6 @@ const Login = (props) => {
       className={`${classes.login} ${theme.darkMode ? "bg-dark" : "bg-light"}`}
     >
       <form onSubmit={submitHandler}>
-        <div
-          className={`${classes.control} ${
-            emailState.isValid === false ? classes.invalid : ""
-          }`}
-        >
-          <label
-            className={`${theme.darkMode ? "para-dark" : "para-light"}`}
-            htmlFor="text"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="text"
-            value={name}
-            onChange={nameChangeHandler}
-          />
-        </div>
         <div
           className={`${classes.control} ${
             emailState.isValid === false ? classes.invalid : ""
