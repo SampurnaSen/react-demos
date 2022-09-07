@@ -1,20 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 
-import AuthContext from '../../store/auth-context';
+import AuthContext from "../../store/auth-context";
 import BasicButton from "../Button/BasicButton";
-import classes from './Navigation.module.css';
+import classes from "./Navigation.module.css";
+import { Link } from "react-router-dom";
 
-const Navigation = (props) => {
-  const ctx = useContext(AuthContext);
+const Navigation = () => {
+  const { isLoggedIn, onLogout } = useContext(AuthContext);
 
   return (
     <nav className={classes.nav}>
       <ul>
-        {ctx.isLoggedIn && (
-          <li>
-            <BasicButton onClick={props.onLogout} title="Logout"/>
-            {/* <button className=navigationButton onClick={props.onLogout}>Logout</button> */}
-          </li>
+        {isLoggedIn && (
+          <>
+            <li>
+              <Link to="/books">Books</Link>
+            </li>
+            <li>
+              <BasicButton onClick={onLogout} title="Logout" />
+            </li>
+          </>
         )}
       </ul>
     </nav>
