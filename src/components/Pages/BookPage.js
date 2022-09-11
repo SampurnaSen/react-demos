@@ -39,7 +39,7 @@ const BookPage = () => {
       setError(error.message)
     }
     setIsLoading(false)
-  }, [searchText])
+  }, [searchText, error.message])
 
   const searchTextHandler = (e) => {
     setSearchText(e.target.value);
