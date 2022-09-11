@@ -1,24 +1,69 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useEffect, useState } from "react";
+import { ThemeContext } from "./store/theme-context";
+import Login from "./components/Login/Login";
+import Home from "./components/Home/Home";
+import MainHeader from "./components/MainHeader/MainHeader";
+import AuthContext from "./store/auth-context";
+import "./App.css";
+import { Route, Switch } from 'react-router-dom'
+import BookPage from "./components/Pages/BookPage";
 
 function App() {
+  const theme = useContext(ThemeContext);
+  const darkMode = theme.darkMode;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    const storedUserLoggedInInformation = localStorage.getItem("isLoggedIn");
+
+    if (storedUserLoggedInInformation === "1") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const loginHandler = (email, password, name) => {
+    localStorage.setItem("isLoggedIn", "1");
+    setIsLoggedIn(true);
+    setName(name);
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  };
+
+  const loggedInRoutes = (
+    <>
+      <Route path="/books" component={BookPage} />
+      <Route path="/" exact component={Home}/>
+    </>
+  )
+
+  const notLoggedInRoutes = (
+    <>
+      <Route path="/" exact component={Login}/>
+    </>
+  )
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello React World
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: isLoggedIn,
+        name: name,
+        onLogin: loginHandler,
+        onLogout: logoutHandler
+      }}
+    >
+      <MainHeader onLogout={logoutHandler} />
+      <main>
+        <Switch>
+          {isLoggedIn && loggedInRoutes}
+          {!isLoggedIn && notLoggedInRoutes}
+        </Switch>
+      </main>
+    </AuthContext.Provider>
   );
 }
 
