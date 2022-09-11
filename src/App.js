@@ -5,7 +5,7 @@ import Home from "./components/Home/Home";
 import MainHeader from "./components/MainHeader/MainHeader";
 import AuthContext from "./store/auth-context";
 import "./App.css";
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch } from "react-router-dom"
 import BookPage from "./components/Pages/BookPage";
 
 function App() {
