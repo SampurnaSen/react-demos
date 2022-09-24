@@ -3,17 +3,17 @@ import Button from './components/Button'
 import BookList from "./components/BooksList";
 import "./App.css";
 import LoadingSpinner from "./components/LoadingSpinner";
- 
+
 function App() {
  const [books, setBooks] = useState([]);
  const [error, setError] = useState(null);
  const [isLoading, setIsLoading] = useState(false);
- 
+
  const fetchBooksHandler = useCallback(async() => {
   setIsLoading(true)
   setError(null)
   try {
-    const response = await fetch("https://openlibrary.org/authors/OL23919A/works.json?limit=10")
+    const response = await fetch("https://openlibrary.org/authors/OL10664920A/works.json?limit=10")
     if(response.status === 404) {
       setError(true)
       console.log(response)
@@ -50,15 +50,15 @@ function App() {
  if (isLoading) {
   content = <LoadingSpinner />
  }
- 
+
  return (
    <React.Fragment>
      <section>
-       <Button onClick={fetchBooksHandler}>Search for J.K Rowling's work</Button>
+       <Button onClick={fetchBooksHandler}>Search for Roald Dahl books</Button>
      </section>
        {content}
    </React.Fragment>
  );
 }
- 
+
 export default App;
