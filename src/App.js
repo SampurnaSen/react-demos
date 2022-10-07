@@ -6,7 +6,6 @@ import MainHeader from "./components/MainHeader/MainHeader";
 import AuthContext from "./store/auth-context";
 import "./App.css";
 import { Route, Switch } from 'react-router-dom'
-import BookPage from "./components/Pages/BookPage";
 
 function App() {
   const theme = useContext(ThemeContext);
@@ -35,7 +34,6 @@ function App() {
 
   const loggedInRoutes = (
     <>
-      <Route path="/books" component={BookPage} />
       <Route path="/" exact component={Home}/>
     </>
   )
