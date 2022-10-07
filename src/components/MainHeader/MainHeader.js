@@ -1,18 +1,16 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import Navigation from "./Navigation";
 import ThemeButton from "../Button/ThemeButton";
 import classes from "./MainHeader.module.css";
-import AuthContext from "../../store/auth-context";
 
-const MainHeader = () => {
-  const { onLogout } = useContext(AuthContext)
+const MainHeader = (props) => {
   return (
     <header className={classes["main-header"]}>
       <h1>Hello World</h1>
       <div className={classes.NavButtons}>
         <ThemeButton />
-        <Navigation onLogout={onLogout} />
+        <Navigation onLogout={props.onLogout} />
       </div>
     </header>
   );

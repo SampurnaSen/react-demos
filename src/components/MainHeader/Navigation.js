@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 
-import AuthContext from "../../store/auth-context";
 import BasicButton from "../Button/BasicButton";
 import classes from "./Navigation.module.css";
 import { Link } from "react-router-dom";
+import AuthContext from "../../store/auth-context";
 
-const Navigation = () => {
-  const { isLoggedIn, onLogout } = useContext(AuthContext);
+const Navigation = (props) => {
+  const { isLoggedIn } = useContext(AuthContext);
 
   return (
     <nav className={classes.nav}>
@@ -14,10 +14,7 @@ const Navigation = () => {
         {isLoggedIn && (
           <>
             <li>
-              <Link to="/books">Books</Link>
-            </li>
-            <li>
-              <BasicButton onClick={onLogout} title="Logout" />
+              <BasicButton onClick={props.onLogout} title="Logout" />
             </li>
           </>
         )}

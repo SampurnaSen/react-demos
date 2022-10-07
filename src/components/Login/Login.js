@@ -4,7 +4,6 @@ import Card from "../Card/Card";
 import classes from "./Login.module.css";
 import Button from "../Button/BasicButton";
 import { ThemeContext } from "../../store/theme-context";
-import AuthContext from "../../store/auth-context";
 
 const nameReducer = (state, action) => {
   if(action.type === "USER_INPUT") {
@@ -38,11 +37,10 @@ const passwordReducer = (state, action) => {
   return { value: "", isValid: false };
 };
 
-const Login = () => {
+const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   const theme = useContext(ThemeContext);
-  const { onLogin } = useContext(AuthContext);
 
   const [nameState, dispatchName] = useReducer(nameReducer, {
     value: "",
@@ -98,7 +96,7 @@ const Login = () => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    onLogin(emailState.value, passwordState.value, nameState.value);
+    props.onLogin(emailState.value, passwordState.value, nameState.value);
   };
 
   return (
