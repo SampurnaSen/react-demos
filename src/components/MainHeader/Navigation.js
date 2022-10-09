@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 
 import BasicButton from "../Button/BasicButton";
 import classes from "./Navigation.module.css";
-import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
+import { Link } from "react-router-dom";
 
-const Navigation = (props) => {
-  const { isLoggedIn } = useContext(AuthContext);
+const Navigation = () => {
+  const { isLoggedIn, onLogout } = useContext(AuthContext);
 
   return (
     <nav className={classes.nav}>
@@ -14,7 +14,10 @@ const Navigation = (props) => {
         {isLoggedIn && (
           <>
             <li>
-              <BasicButton onClick={props.onLogout} title="Logout" />
+              <Link to="/books">Books</Link>
+            </li>
+            <li>
+              <BasicButton onClick={onLogout} title="Logout" />
             </li>
           </>
         )}
